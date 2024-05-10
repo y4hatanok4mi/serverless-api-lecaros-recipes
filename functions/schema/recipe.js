@@ -12,11 +12,11 @@ const recipeSchema = new Schema ({
     required: true,
   },
   ingredients: {
-    type: String,
+    type: [String],
     required: true,
   },
   instructions: {
-    type: String,
+    type: [String],
     required: true,
   },
   category: {

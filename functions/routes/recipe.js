@@ -91,14 +91,17 @@ async function getRecipe(req, res, next) {
 }
 
 // Get recipes by cuisine
-router.get('/cuisine/:cuisine', (req, res) => {
-  const { cuisine } = req.params;
-  const filteredRecipes = recipeSchema.filter(r => r.cuisine.toLowerCase() === cuisine.toLowerCase());
-  res.json(filteredRecipes);
+router.get('/cuisine/:cuisine', async (req, res) => {
+  try {
+    const recipes = await Recipe.find({ cuisine: req.params.cuisine });
+    res.json(recipes);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 // Search recipes by ingredients
-router.get('/search', (req, res) => {
+router.get('/search/:ingredients', (req, res) => {
   const { ingredients } = req.query;
   const ingredientList = ingredients.split(',');
   const matchingRecipes = recipeSchema.filter(recipe => {
