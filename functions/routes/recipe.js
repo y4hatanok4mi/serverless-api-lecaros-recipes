@@ -22,7 +22,7 @@ router.get("/:id", getRecipe, (req, res) => {
 router.post("/", async (req, res) => {
   try {
     //validate the request
-    if (!req.body.name || !req.body.age) {
+    if (!req.body.name || !req.body.ingredients) {
       return res.status(400).json({ message: "Name and Ingredients are required" });
     }
     //check if recipe already exists
