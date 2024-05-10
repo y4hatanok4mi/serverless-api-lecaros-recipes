@@ -111,7 +111,7 @@ router.get('/search/:ingredients', async (req, res) => {
 });
 
 // Get favorite recipes
-router.get('/favorites', async (req, res) => {
+router.get('/favorites/:favorite', async (req, res) => {
   try {
     const favoriteRecipes = await RecipeInfo.find({ favorite: true });
     res.json(favoriteRecipes);
