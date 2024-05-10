@@ -137,7 +137,7 @@ router.put('/:id/favorite', async (req, res) => {
 });
 
 // Unmark a recipe as favorite
-router.put('/:id/favorite', async (req, res) => {
+router.put('/:id/unfavorite', async (req, res) => {
   try {
     const { id } = req.params;
     const recipe = await RecipeInfo.findById(id);
