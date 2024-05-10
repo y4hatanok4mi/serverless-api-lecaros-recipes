@@ -93,7 +93,7 @@ async function getRecipe(req, res, next) {
 // Get recipes by cuisine
 router.get('/cuisine/:cuisine', async (req, res) => {
   try {
-    const recipes = await Recipe.find({ cuisine: req.params.cuisine });
+    const recipes = await RecipeInfo.find({ cuisine: req.params.cuisine });
     res.json(recipes);
   } catch (err) {
     res.status(500).json({ message: err.message });
