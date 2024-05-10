@@ -25,7 +25,6 @@ const recipeSchema = new Schema ({
   },
   favorite: {
     type: Boolean,
-    required: true,
   },
   username: String,
   password: String,
