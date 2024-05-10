@@ -101,13 +101,17 @@ router.get('/cuisine/:cuisine', async (req, res) => {
 });
 
 // Search recipes by ingredients
-router.get('/search/:ingredients', (req, res) => {
-  const { ingredients } = req.query;
-  const ingredientList = ingredients.split(',');
-  const matchingRecipes = recipeSchema.filter(recipe => {
-    return ingredientList.every(ingredient => recipe.ingredients.includes(ingredient.trim()));
-  });
-  res.json(matchingRecipes);
+router.get('/search', async (req, res) => {
+  try {
+    const { ingredients } = req.query;
+    const ingredientList = ingredients.split(',').map(ingredient => ingredient.trim().toLowerCase());
+
+    // Find recipes where any ingredient matches
+    const recipes = await Recipe.find({ ingredients: { $in: ingredientList } });
+    res.json(recipes);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 // Get favorite recipes
