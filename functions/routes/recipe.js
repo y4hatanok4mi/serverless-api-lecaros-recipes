@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 
 //get Single Recipe
 
-router.get("/:name", getRecipe, (req, res) => {
+router.get("/:id", getRecipe, (req, res) => {
   res.json(res.recipe);
 });
 
@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
 });
 
 //update Recipe
-router.patch("/:name", getRecipe, async (req, res) => {
+router.patch("/:id", getRecipe, async (req, res) => {
   try {
     if (req.body.name != null) {
       res.recipe.name = req.body.name;
@@ -54,7 +54,7 @@ router.patch("/:name", getRecipe, async (req, res) => {
   }
 });
 
-router.put("/:name", getRecipe, async (req, res) => {
+router.put("/:id", getRecipe, async (req, res) => {
   try {
     const updatedRecipe = await RecipeInfo.findByIdAndUpdate(
       req.params.id,
@@ -68,7 +68,7 @@ router.put("/:name", getRecipe, async (req, res) => {
 });
 
 //delete Recipe
-router.delete("/:name", getRecipe, async (req, res) => {
+router.delete("/:id", getRecipe, async (req, res) => {
   try {
     await RecipeInfo.findByIdAndDelete(req.params.id);
     res.json({ message: "Recipe deleted" });
@@ -114,7 +114,7 @@ router.get('/favorites', (req, res) => {
 });
 
 // Mark a recipe as favorite
-router.put('/:name/favorite', (req, res) => {
+router.put('/:id/favorite', (req, res) => {
   const { id } = req.params;
   const recipe = recipeSchema.find(r => r.id === parseInt(id));
   if (!recipe) return res.status(404).send('Recipe not found');
@@ -123,7 +123,7 @@ router.put('/:name/favorite', (req, res) => {
 });
 
 // Unmark a recipe as favorite
-router.put('/:name/unfavorite', (req, res) => {
+router.put('/:id/unfavorite', (req, res) => {
   const { id } = req.params;
   const recipe = recipeSchema.find(r => r.id === parseInt(id));
   if (!recipe) return res.status(404).send('Recipe not found');
