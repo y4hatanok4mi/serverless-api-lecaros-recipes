@@ -117,12 +117,19 @@ router.get('/favorites', (req, res) => {
 });
 
 // Mark a recipe as favorite
-router.put('/:id/favorite', (req, res) => {
-  const { id } = req.params;
-  const recipe = recipeSchema.find(r => r.id === parseInt(id));
-  if (!recipe) return res.status(404).send('Recipe not found');
-  recipe.favorite = true;
-  res.json(recipe);
+router.put('/:id/favorite', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const recipe = await RecipeInfo.findById(id);
+    if (!recipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+    recipe.favorite = true;
+    await recipe.save();
+    res.json(recipe);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 // Unmark a recipe as favorite
