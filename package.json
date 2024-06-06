@@ -11,8 +11,9 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "mongoose": "^8.3.4",
+    "mongoose": "^8.3.2",
     "serverless-http": "^3.2.0"
   },
+  "devDependencies": {},
   "description": ""
 }
